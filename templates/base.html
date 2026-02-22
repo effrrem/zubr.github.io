@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Магазин запчастей{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>
+                <img src="{{ url_for('static', filename='images/logo.png') }}"
+                     alt="Логотип «Зубр»"
+                     class="logo">
+                Магазин автозапчастей «Зубр»
+            </h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('about') }}">О нас</a>
+                <a href="{{ url_for('service') }}">Запись на сервис</a>
+
+                {% if session.admin_logged_in %}
+                    <a href="{{ url_for('admin') }}">Админка</a>
+                    <a href="{{ url_for('logout') }}">Выход (админ)</a>
+                {% elif session.user_id %}
+                    <a href="{{ url_for('logout_user') }}">Выход ({{ session.username }})</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Вход (админ)</a>
+                    <a href="{{ url_for('login_user') }}">Клиент</a>
+                    <a href="{{ url_for('register') }}">Регистрация</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>ООО «Зубр»</strong> — надёжные запчасти с 2008 года</p>
+            <p>📍 Адрес: 400075, г. Волгоград, ул. Краснополянская, 23</p>
+            <p>📞 Телефон: (8442) 26-44-88 | 📠 Факс: (8442) 54-44-02</p>
+            <p>📧 Email: <a href="mailto:man34@tehcentr.ru">man34@tehcentr.ru</a></p>
+            <p>🌐 Сайт: <a href="http://www.man34.ru" target="_blank">www.man34.ru</a></p>
+            <p>🏦 Р/с 40702810931000304001 в Южном филиале ПАО «ПРОМСВЯЗЬБАНК», г. Волгоград</p>
+            <p>📌 БИК: 041806715 | к/с: 30101810100000000715 | ИНН: 3443089028</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Вход для администратора{% endblock %}
+
+{% block content %}
+<h2>🔐 Вход в панель администратора</h2>
+
+{% if error %}
+    <p style="color: red; font-weight: bold;">{{ error }}</p>
+{% endif %}
+
+<form method="post" style="max-width: 400px; margin: 0 auto;">
+    <label>Логин</label>
+    <input type="text" name="username" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
+
+    <label>Пароль</label>
+    <input type="password" name="password" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
+
+    <button type="submit" style="width: 100%;">Войти</button>
+</form>
+
+<p style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('index') }}">← На главную</a>
+</p>
+{% endblock %}

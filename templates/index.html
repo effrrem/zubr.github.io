@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Поиск запчастей</h1>
+
+<!-- Форма поиска -->
+<form method="POST">
+    <div style="margin-bottom: 10px;">
+        <label for="search_type">Искать по:</label>
+        <select name="search_type" id="search_type">
+            <option value="name" {% if search_type == 'name' %}selected{% endif %}>Наименованию</option>
+            <option value="catalog" {% if search_type == 'catalog' %}selected{% endif %}>№ по каталогу</option>
+            <option value="price" {% if search_type == 'price' %}selected{% endif %}>Розничной цене</option>
+            <option value="stock" {% if search_type == 'stock' %}selected{% endif %}>Наличию на складе (≥)</option>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        <label for="search_query">Запрос:</label>
+        <input
+            type="text"
+            id="search_query"
+            name="search_query"
+            value="{{ search_query }}"
+            placeholder="Введите значение"
+        >
+    </div>
+
+    <button type="submit">🔍 Поиск</button>
+</form>
+
+<a href="{{ url_for('index') }}" class="btn">Показать все детали</a>
+
+<h2>Результаты</h2>
+{% if parts %}
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>№ по каталогу</th>
+            <th>Розн. цена</th>
+            <th>Склад</th>
+            <th>Описание</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for part in parts %}
+        <tr>
+            <td>{{ part[1] }}</td> <!-- name -->
+            <td>{{ part[2] }}</td> <!-- catalog_number -->
+            <td>{{ part[3] }}</td> <!-- retail_price -->
+            <td>{{ part[4] }}</td> <!-- stock -->
+            <td>{{ part[5] }}</td> <!-- description -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>❌ Детали не найдены.</p>
+{% endif %}
+{% endblock %}

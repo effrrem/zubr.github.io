@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Запись на сервисное обслуживание</h1>
+
+{% if success %}
+<p style="color: green; font-size: 18px;">✅ Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.</p>
+{% endif %}
+
+<form method="POST">
+    <div style="margin-bottom: 15px;">
+        <label for="name">Ваше имя:</label><br>
+        <input type="text" id="name" name="name" required style="width: 300px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="phone">Телефон:</label><br>
+        <input type="tel" id="phone" name="phone" required style="width: 300px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required style="width: 300px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="car_model">Модель автомобиля:</label><br>
+        <input type="text" id="car_model" name="car_model" required style="width: 300px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="service_type">Вид услуги:</label><br>
+        <select id="service_type" name="service_type" style="width: 300px;">
+            <option value="ТО">Техническое обслуживание</option>
+            <option value="Диагностика">Диагностика</option>
+            <option value="Ремонт">Ремонт</option>
+            <option value="Шиномонтаж">Шиномонтаж</option>
+            <option value="Другое">Другое</option>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="date">Желаемая дата:</label><br>
+        <input type="date" id="date" name="date" required style="width: 300px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="comment">Комментарий:</label><br>
+        <textarea id="comment" name="comment" rows="4" style="width: 300px;"></textarea>
+    </div>
+
+    <button type="submit" style="font-size: 16px; padding: 10px 20px;">Отправить заявку</button>
+</form>
+{% endblock %}

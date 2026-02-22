@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Админка — Все запчасти</h2>
+
+<!-- Форма загрузки Excel -->
+<form method="post" action="/upload_excel" enctype="multipart/form-data" style="margin-bottom: 10px;">
+    <label for="excel_file">Загрузить запчасти из Excel:</label>
+    <input type="file" name="excel_file" accept=".xlsx,.xls" required>
+    <button type="submit">Импорт из Excel</button>
+</form>
+
+<form action="/export_excel" method="GET" style="display: inline;">
+    <button type="submit">📤 Экспорт в Excel</button>
+</form>
+
+<a href="{{ url_for('add_part') }}">Добавить запчасть вручную</a> |
+<a href="{{ url_for('logout') }}">Выйти</a>
+
+<h3>Список запчастей</h3>
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>№ по каталогу</th>
+            <th>Розн. цена</th>
+            <th>Склад</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for part in parts %}
+        <tr>
+            <td>{{ part[1] }}</td>
+            <td>{{ part[2] }}</td>
+            <td>{{ part[3] }}</td>
+            <td>{{ part[4] }}</td>
+            <td>
+                <a href="{{ url_for('delete_part', part_id=part[0]) }}">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
